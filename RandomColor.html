@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random color</title>
+  </head>
+  <body>
+    <script>
+      size = parseInt(prompt('Enter size:'));
+      while (isNaN(size) || size < 0) {
+        size = parseInt(prompt('Enter size:'));
+      }
+
+      function RandInt(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+      }
+
+      function output() {
+        document.body.innerHTML = '';
+        document.write('<table width="100%" height="1000" border="1">');
+        for (let i = 0; i < size; i++) {
+          document.write("<tr>");
+          for (let j = 0; j < size; j++) {
+            document.write("<td></td>");
+          }
+          document.write("</tr>");
+        }
+        document.write("</table>");
+
+        td = document.getElementsByTagName("td");
+        for (let i = 0; i < size * size; i++) {
+          r = RandInt(0, 255);
+          g = RandInt(0, 255);
+          b = RandInt(0, 255);
+          td[i].style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+        }
+        document.write("<p>Dimension: " + size + " x " + size + "</p>");
+        document.write("<p>Number of colors: " + size * size + "</p>");
+        document.write('<button onclick="inc()"> + </button> <br> <br> ');
+        document.write('<button onclick="dec()"> - </button> <br> <br>');
+        document.write('<button onclick="output()">Change palette</button>')
+      }
+
+      function inc() {
+          size += 1;
+          output();
+      }
+
+      function dec() {
+        if (size > 0) {
+          size -= 1;
+          output();
+        } else {
+          alert('Size can not be negative!');
+        }
+      }
+
+      output();
+    </script>
+  </body>
+</html>
