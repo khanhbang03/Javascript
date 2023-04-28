@@ -29,10 +29,10 @@ This makes it a useful tool in many mathematical applications.
                     '<label for="dim">Please fill in the cell with a table size:</label>'
                 );
                 document.write(
-                    '<input type="number" id="sz" style="margin: 0px 15px">'
+                    '<input type="number" id="sz" style="margin: 0 15px">'
                 );
                 document.write(
-                    "<button onclick=\"size=document.getElementById('sz').value; writeNormalTable()\">Change dimension</button>"
+                    "<button onclick=\"size=document.getElementById('sz').value; Normal()\">Change dimension</button>"
                 );
                 document.write("</form>");
 
@@ -62,25 +62,14 @@ This makes it a useful tool in many mathematical applications.
 
             function Control() {
                 document.write(
-                    '<br> <button onclick="MarkPrime()">Mark primes</button> <br> <br>'
-                );
-                document.write(
-                    '<button onclick="Randomize()" style="margin-right: 10px">Randomize</button> <br>'
+                    '<br> <button onclick="MarkPrime()">Mark primes</button>' + 
+                    '<button onclick="Randomize()" style="margin: 0 15px">Randomize</button> <br>'
                 );
                 Dimension();
             }
 
-            function Disco() {
-                document.body.removeChild(document.getElementById("disco"));
-                myInterval = setInterval(function () {
-                    document.body.removeChild(
-                        document.getElementsByTagName("table")[0]
-                    );
-                    writeRandomTable();
-                }, 200);
-            }
-
-            function writeRandomTable() {
+            function Randomize() {
+                Reset();
                 document.write('<table border="3">');
                 for (let i = 0; i < size; i++) {
                     document.write("<tr>");
@@ -94,20 +83,11 @@ This makes it a useful tool in many mathematical applications.
                     document.write("</tr>");
                 }
                 document.write("</table>");
+                Control();
             }
 
-            function Randomize() {
+            function Normal() {
                 Reset();
-                Control();
-                writeRandomTable();
-                document.write(
-                    '<button id="disco" onclick="Disco()">Disco</button>'
-                );
-            }
-
-            function writeNormalTable() {
-                Reset();
-                Control();
                 document.write('<table border="3">');
                 for (let i = 0; i < size; i++) {
                     document.write("<tr>");
@@ -117,10 +97,11 @@ This makes it a useful tool in many mathematical applications.
                     document.write("</tr>");
                 }
                 document.write("</table>");
+                Control();
             }
 
             size = 10;
-            writeNormalTable();
+            Normal();
         </script>
     </body>
 </html>
