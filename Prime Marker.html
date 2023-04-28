@@ -1,0 +1,115 @@
+<!--
+The Sieve of Eratosthenes is an algorithm for finding all prime numbers up to a specified limit. 
+It works by creating a list of all numbers from 2 to the limit, and then iteratively marking off all multiples of each prime number, starting with 2.
+The algorithm is called the "Sieve" because it works by repeatedly "sifting out" composite numbers from the list until only prime numbers remain.
+By using this algorithm, it's possible to find all prime numbers up to a very large limit efficiently, with a time complexity of O(n * log(log n)). 
+This makes it a useful tool in many mathematical applications.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <script>
+            function Reset() {
+                document.body.innerHTML = "";
+                document.write("<title>Table of numbers</title>");
+
+                document.write("<style>");
+                document.write("td {text-align: center;}");
+                document.write("</style>");
+            }
+
+            /* Form to adjust dimension*/
+            function Form() {
+                document.write('<br> <form id="dim">');
+                document.write(
+                    '<label for="dim">Please fill in the cell with a table size:</label>'
+                );
+                document.write('<input id="sz" style="margin: 0px 15px">');
+                document.write(
+                    "<button onclick=\"size=document.getElementById('sz').value; Normal()\">Change dimension</button>"
+                );
+                document.write("</form>");
+
+                document.write("<p>Dimension: " + size + " x " + size + "</p>");
+                document.write("<p>Number of numbers: " + size * size + "</p>");
+            }
+
+            function MarkPrime() {
+                /* Sieve of Eratosthenes */
+                n = size * size;
+                td = document.getElementsByTagName("td");
+                prime = Array.from({ length: n + 1 }, () => true);
+                prime[0] = prime[1] = false;
+                for (let i = 2; i <= n; i++) {
+                    if (prime[i]) {
+                        for (let j = 2 * i; j <= n; j += i) {
+                            prime[j] = false;
+                        }
+                    }
+                }
+                for (let i = 0; i < n; i++) {
+                    if (prime[td[i].innerHTML]) {
+                        td[i].style.backgroundColor = "black";
+                        td[i].style.color = "red";
+                    }
+                }
+            }
+
+            function Randomize() {
+                Reset();
+                document.write('<table border="3">');
+                for (let i = 0; i < size; i++) {
+                    document.write("<tr>");
+                    for (let j = 0; j < size; j++) {
+                        document.write(
+                            "<td>" +
+                                Math.floor(Math.random() * size * size) +
+                                "</td>"
+                        );
+                    }
+                    document.write("</tr>");
+                }
+                document.write("</table>");
+                document.write(
+                    '<br> <button onclick="MarkPrime()">Mark primes</button> <br> <br>'
+                );
+                document.write(
+                    '<button onclick="Randomize()">Randomize</button> <br>'
+                );
+                document.write(
+                    '<br> <button onclick="Normal()">Normal</button> <br>'
+                );
+                Form();
+            }
+
+            function Normal() {
+                Reset();
+                document.write('<table border="3">');
+                for (let i = 0; i < size; i++) {
+                    document.write("<tr>");
+                    for (let j = 1; j <= size; j++) {
+                        document.write("<td>" + (i * size + j) + "</td>");
+                    }
+                    document.write("</tr>");
+                }
+                document.write("</table>");
+                document.write(
+                    '<br> <button onclick="MarkPrime()">Mark primes</button> <br> <br>'
+                );
+                document.write(
+                    '<button onclick="Randomize()">Randomize</button> <br>'
+                );
+                Form();
+            }
+
+            size = 10;
+            Normal();
+        </script>
+    </body>
+</html>
