@@ -18,8 +18,18 @@ This makes it a useful tool in many mathematical applications.
                 document.write("<title>Table of numbers</title>");
 
                 document.write("<style>");
-                document.write("td {text-align: center;}");
+                document.write("input, td {text-align: center;}");
                 document.write("</style>");
+            }
+
+            function handleInput() {
+                input = document.getElementById('sz');
+                if (input.value < 0) {
+                    input.value = 0;
+                }
+                if (input.value > 100) {
+                    input.value = 100;
+                }
             }
 
             /* Form to adjust dimension*/
@@ -29,7 +39,7 @@ This makes it a useful tool in many mathematical applications.
                     '<label for="dim">Please fill in the cell with a table size:</label>'
                 );
                 document.write(
-                    '<input type="number" id="sz" style="margin: 0 15px">'
+                    '<input type="number" oninput="handleInput()" value="10" id="sz" style="margin: 0 15px">'
                 );
                 document.write(
                     "<button onclick=\"size=document.getElementById('sz').value; Normal()\">Change dimension</button>"
