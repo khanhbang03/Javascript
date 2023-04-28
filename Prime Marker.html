@@ -23,19 +23,20 @@ This makes it a useful tool in many mathematical applications.
             }
 
             /* Form to adjust dimension*/
-            function Form() {
+            function Dimension() {
                 document.write('<br> <form id="dim">');
                 document.write(
                     '<label for="dim">Please fill in the cell with a table size:</label>'
                 );
-                document.write('<input type="number" id="sz" style="margin: 0px 15px">');
                 document.write(
-                    "<button onclick=\"size=document.getElementById('sz').value; Normal()\">Change dimension</button>"
+                    '<input type="number" id="sz" style="margin: 0px 15px">'
+                );
+                document.write(
+                    "<button onclick=\"size=document.getElementById('sz').value; writeNormalTable()\">Change dimension</button>"
                 );
                 document.write("</form>");
 
                 document.write("<p>Dimension: " + size + " x " + size + "</p>");
-                document.write("<p>Number of numbers: " + size * size + "</p>");
             }
 
             function MarkPrime() {
@@ -59,8 +60,27 @@ This makes it a useful tool in many mathematical applications.
                 }
             }
 
-            function Randomize() {
-                Reset();
+            function Control() {
+                document.write(
+                    '<br> <button onclick="MarkPrime()">Mark primes</button> <br> <br>'
+                );
+                document.write(
+                    '<button onclick="Randomize()" style="margin-right: 10px">Randomize</button> <br>'
+                );
+                Dimension();
+            }
+
+            function Disco() {
+                document.body.removeChild(document.getElementById("disco"));
+                myInterval = setInterval(function () {
+                    document.body.removeChild(
+                        document.getElementsByTagName("table")[0]
+                    );
+                    writeRandomTable();
+                }, 200);
+            }
+
+            function writeRandomTable() {
                 document.write('<table border="3">');
                 for (let i = 0; i < size; i++) {
                     document.write("<tr>");
@@ -74,20 +94,20 @@ This makes it a useful tool in many mathematical applications.
                     document.write("</tr>");
                 }
                 document.write("</table>");
-                document.write(
-                    '<br> <button onclick="MarkPrime()">Mark primes</button> <br> <br>'
-                );
-                document.write(
-                    '<button onclick="Randomize()">Randomize</button> <br>'
-                );
-                document.write(
-                    '<br> <button onclick="Normal()">Normal</button> <br>'
-                );
-                Form();
             }
 
-            function Normal() {
+            function Randomize() {
                 Reset();
+                Control();
+                writeRandomTable();
+                document.write(
+                    '<button id="disco" onclick="Disco()">Disco</button>'
+                );
+            }
+
+            function writeNormalTable() {
+                Reset();
+                Control();
                 document.write('<table border="3">');
                 for (let i = 0; i < size; i++) {
                     document.write("<tr>");
@@ -97,17 +117,10 @@ This makes it a useful tool in many mathematical applications.
                     document.write("</tr>");
                 }
                 document.write("</table>");
-                document.write(
-                    '<br> <button onclick="MarkPrime()">Mark primes</button> <br> <br>'
-                );
-                document.write(
-                    '<button onclick="Randomize()">Randomize</button> <br>'
-                );
-                Form();
             }
 
             size = 10;
-            Normal();
+            writeNormalTable();
         </script>
     </body>
 </html>
